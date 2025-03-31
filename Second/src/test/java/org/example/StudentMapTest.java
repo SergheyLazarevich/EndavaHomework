@@ -58,5 +58,13 @@ public class StudentMapTest {
         assertThat(studentMap.size()).isEqualTo(2);
     }
 
+    @Test
+    public void testResize() {
+        for (int i = 0; i < 20; i++) {
+            studentMap.put(new Student("Student " + i, LocalDate.of(2000, 1, 1), "student" + i + "@example.com"), i);
+        }
+        assertThat(studentMap.size()).isGreaterThan(16);
+    }
+
 
 }
