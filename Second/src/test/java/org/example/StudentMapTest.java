@@ -66,5 +66,17 @@ public class StudentMapTest {
         assertThat(studentMap.size()).isGreaterThan(16);
     }
 
+    @Test
+    public void testCollisions() {
+        Student student1 = new Student("John Doe", LocalDate.of(2000, 5, 12), "john@example.com");
+        Student student2 = new Student("Jane Doe", LocalDate.of(2000, 7, 15), "jane@example.com");
+
+        studentMap.put(student1, 100);
+        studentMap.put(student2, 200);
+
+        assertThat(studentMap.get(student1)).isEqualTo(100);
+        assertThat(studentMap.get(student2)).isEqualTo(200);
+    }
+
 
 }
