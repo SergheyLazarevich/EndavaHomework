@@ -30,5 +30,14 @@ public class StudentMapTest {
 
         assertThat(studentMap.containsKey(student)).isTrue();
     }
-    
+
+    @Test
+    public void testContainsValue() {
+        Student student = new Student("John Doe", LocalDate.of(2000, 5, 12), "john@example.com");
+        studentMap.put(student, 100);
+
+        assertThat(studentMap.containsValue(100)).isTrue();
+    }
+
+
 }
