@@ -1,9 +1,6 @@
 package com.endava.internship;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StudentMap implements Map<Student, Integer> {
     private static final int INITIAL_CAPACITY = 16;
@@ -52,6 +49,10 @@ public class StudentMap implements Map<Student, Integer> {
             }
         }
     }
+
+
+    @Override
+    public boolean isEmpty() { return size == 0; }
 
     @Override
     public Integer get(Object key) {
@@ -121,7 +122,7 @@ public class StudentMap implements Map<Student, Integer> {
         }
         return false;
     }
-    
+
     @Override
     public Set<Student> keySet() {
         Set<Student> set = new HashSet<>();
@@ -143,4 +144,27 @@ public class StudentMap implements Map<Student, Integer> {
         }
         return set;
     }
+
+
+    @Override
+    public void putAll(Map<? extends Student, ? extends Integer> m) {
+        for (Map.Entry<? extends Student, ? extends Integer> entry : m.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
+    }
+    @Override
+    public int size() { return size; }
+
+    @Override
+    public void clear() {
+        Arrays.fill(table, null);
+        size = 0;
+    }
+
+
+    @Override
+    public Set<Map.Entry<Student, Integer>> entrySet() {
+        throw new UnsupportedOperationException();
+    }
+
 }
