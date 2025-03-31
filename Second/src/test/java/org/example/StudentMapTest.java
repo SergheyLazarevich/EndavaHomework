@@ -39,5 +39,14 @@ public class StudentMapTest {
         assertThat(studentMap.containsValue(100)).isTrue();
     }
 
+    @Test
+    public void testRemove() {
+        Student student = new Student("John Doe", LocalDate.of(2000, 5, 12), "john@example.com");
+        studentMap.put(student, 100);
+        studentMap.remove(student);
+
+        assertThat(studentMap.containsKey(student)).isFalse();
+    }
+
 
 }
