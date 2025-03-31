@@ -78,5 +78,16 @@ public class StudentMapTest {
         assertThat(studentMap.get(student2)).isEqualTo(200);
     }
 
+    @Test
+    public void testClear() {
+        Student student1 = new Student("John Doe", LocalDate.of(2000, 5, 12), "john@example.com");
+        studentMap.put(student1, 100);
+
+        studentMap.clear();
+
+        assertThat(studentMap.isEmpty()).isTrue();
+        assertThat(studentMap.containsKey(student1)).isFalse();
+    }
+
 
 }
