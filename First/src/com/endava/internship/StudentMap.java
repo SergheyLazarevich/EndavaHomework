@@ -1,6 +1,9 @@
 package com.endava.internship;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class StudentMap implements Map<Student, Integer> {
     private static final int INITIAL_CAPACITY = 16;
@@ -118,5 +121,26 @@ public class StudentMap implements Map<Student, Integer> {
         }
         return false;
     }
+    
+    @Override
+    public Set<Student> keySet() {
+        Set<Student> set = new HashSet<>();
+        for (Entry<Student, Integer> entry : table) {
+            if (entry != null) {
+                set.add(entry.key);
+            }
+        }
+        return set;
+    }
 
+    @Override
+    public Collection<Integer> values() {
+        Set<Integer> set = new HashSet<>();
+        for (Entry<Student, Integer> entry : table) {
+            if (entry != null) {
+                set.add(entry.value);
+            }
+        }
+        return set;
+    }
 }
