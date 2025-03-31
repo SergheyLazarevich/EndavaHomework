@@ -22,4 +22,13 @@ public class StudentMapTest {
 
         assertThat(studentMap.get(student)).isEqualTo(100);
     }
+
+    @Test
+    public void testContainsKey() {
+        Student student = new Student("John Doe", LocalDate.of(2000, 5, 12), "john@example.com");
+        studentMap.put(student, 100);
+
+        assertThat(studentMap.containsKey(student)).isTrue();
+    }
+    
 }
