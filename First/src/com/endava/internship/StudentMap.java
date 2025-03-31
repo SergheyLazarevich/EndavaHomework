@@ -102,6 +102,21 @@ public class StudentMap implements Map<Student, Integer> {
         return null;
     }
 
-    
+    @Override
+    public boolean containsKey(Object key) {
+        int index = getIndex(key);
+        Entry<Student, Integer> entry = table[index];
+        return entry != null && entry.key.equals(key);
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        for (Entry<Student, Integer> entry : table) {
+            if (entry != null && entry.value.equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
