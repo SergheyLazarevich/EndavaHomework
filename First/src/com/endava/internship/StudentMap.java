@@ -3,5 +3,105 @@ package com.endava.internship;
 import java.util.Map;
 
 public class StudentMap implements Map<Student, Integer> {
+    private static final int INITIAL_CAPACITY = 16;
+    private static final float LOAD_FACTOR = 0.75f;
+    private int size = 0;
+    private Entry<Student, Integer>[] table;
+
+    public StudentMap() {
+        table = new Entry[INITIAL_CAPACITY];
+    }
+
+    static class Entry<K, V> implements Map.Entry<K, V> {
+        final K key;
+        V value;
+
+        Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public K getKey() { return key; }
+
+        @Override
+        public V getValue() { return value; }
+
+        @Override
+        public V setValue(V value) {
+            V oldValue = this.value;
+            this.value = value;
+            return oldValue;
+        }
+    }
+    private int getIndex(Object key) {
+        return (key.hashCode() & 0x7FFFFFFF) % table.length;
+    }
+
+    private void resize() {
+        Entry<Student, Integer>[] oldTable = table;
+        table = new Entry[table.length * 2];
+        size = 0;
+
+        for (Entry<Student, Integer> entry : oldTable) {
+            if (entry != null) {
+                put(entry.key, entry.value);
+            }
+        }
+    }
+
+    @Override
+    public Integer get(Object key) {
+        int index = getIndex(key);
+        int startIndex = index;
+        while (table[index] != null) {
+            if (table[index].key.equals(key)) {
+                return table[index].value;
+            }
+            index = (index + 1) % table.length;
+            if (index == startIndex) {
+                break;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Integer put(Student key, Integer value) {
+        if (size >= table.length * LOAD_FACTOR) {
+            resize();
+        }
+
+        int index = getIndex(key);
+        while (table[index] != null && !table[index].key.equals(key)) {
+            index = (index + 1) % table.length;
+        }
+
+        if (table[index] != null && table[index].key.equals(key)) {
+            table[index].value = value;
+        } else {
+            table[index] = new Entry<>(key, value);
+            size++;
+        }
+
+        return value;
+    }
+
+    @Override
+    public Integer remove(Object key) {
+        int index = getIndex(key);
+        while (table[index] != null) {
+            if (table[index].key.equals(key)) {
+                Integer oldValue = table[index].value;
+                table[index] = null;
+                size--;
+                return oldValue;
+            }
+            index = (index + 1) % table.length;
+        }
+        return null;
+    }
+
+    
 
 }
